@@ -1,7 +1,23 @@
 class Board
-	def initialize
-		@rows = 		[
+	# attr_reader :player
+
+	def initialize(player)
+		@player = player
+		
+		@rows = [
 			["s","s","s","s","s","s","","","",""],
+			["","","","","","","","","",""],
+			["","","","","","","","","",""],
+			["","","","","","","","","",""],
+			["","","","","","","","","",""],
+			["","","","","","","","","",""],
+			["","","","","","","","","",""],
+			["","","","","","","","","",""],
+			["","","","","","","","","",""],
+			["","","","","","","","","",""]
+		]
+		@opponent_view = [
+			["","","","","","","","","",""],
 			["","","","","","","","","",""],
 			["","","","","","","","","",""],
 			["","","","","","","","","",""],
@@ -16,19 +32,7 @@ class Board
 	end
 
 	def opponent_view
-		[
-			["","","","","","","","","",""],
-			["","","","","","","","","",""],
-			["","","","","","","","","",""],
-			["","","","","","","","","",""],
-			["","","","","","","","","",""],
-			["","","","","","","","","",""],
-			["","","","","","","","","",""],
-			["","","","","","","","","",""],
-			["","","","","","","","","",""],
-			["","","","","","","","","",""]
-		]
-
+		@opponent_view
 	end
 
 	def rows
@@ -49,14 +53,15 @@ class Board
 	end
 
 	def register_shot(coordinate)
-		# puts @rows.inspect
 		column, row = convert(coordinate)
 		symbol = identify_cell(coordinate)
-		# @rows[row][column]='o' if (symbol == "")
-		@rows[row][column]='x' if (symbol == "s")
-		
+		symbol == "s" ? @rows[row][column]='x' : @rows[row][column]='o'
+		symbol == "s" ? @opponent_view[row][column]='x' : @opponent_view[row][column]='o'
+		@rows[row][column]
+	end
 
-
+	def owner
+		@player.name
 	end
 
 end
